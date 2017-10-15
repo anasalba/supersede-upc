@@ -66,7 +66,9 @@ public class FlumeStream {
 
     public String interpret(String topic, List<Rule> rules) {
 
-        String result = String.join("\n"
+        String result = "##### INIT #####\n";
+
+        result = String.join("\n", result
                 , agentName + ManagerConstants.DOT + ManagerConstants.SOURCES + " = " + sourceName
                 , agentName + ManagerConstants.DOT + ManagerConstants.CHANNELS + " = " + channelName
                 , agentName + ManagerConstants.DOT + ManagerConstants.SINKS + " = " + sinkName
@@ -81,8 +83,11 @@ public class FlumeStream {
         for (Attribute attribute : event.getAttributes()) {
             eventAtts += " " + attribute.getName();
         }
+
+        result = String.join("\n", result, "\n\n##### SOURCES #####\n");
+
         eventAtts = eventAtts.trim();
-        result = String.join("\n"
+        result = String.join("\n", result
                 , sourcePrefix + ManagerConstants.TYPE + " = upc.edu.cep.flume.sources.CEPKafkaSource"
                 , sourcePrefix + ManagerConstants.SOURCE_EVENT_TYPE + " = " + ManagerConstants.SOURCE_EVENT_TYPE_JSON
                 , sourcePrefix + ManagerConstants.SOURCE_KAFKA_BOOTSTRAP + " = " + kafkaBootstrap
@@ -152,7 +157,7 @@ public class FlumeStream {
         }
 
         result = String.join("\n", result
-                , sourcePrefix + ManagerConstants.Distributed_INTERCEPTOR_PREFIX + "rules" + " = " + ManagerConstants.Distributed_INTERCEPTOR_TYPE_INSTANCE
+                , sourcePrefix + ManagerConstants.Distributed_INTERCEPTOR_PREFIX + "rules" + " = " + allRules
         );
 
         for (Rule rule : eventsWithFilters.keySet()) {
@@ -197,6 +202,7 @@ public class FlumeStream {
                 , sourcePrefix + ManagerConstants.SELECTOR_PREFIX + channelName + ManagerConstants.DOT + "rules" + " = " + allRules
         );
 
+        result = String.join("\n", result, "\n\n##### CHANNELS #####\n");
 
         result = String.join("\n", result
                 , channelPrefix + ManagerConstants.TYPE + "=" + ManagerConstants.CHANNEL_TPYE_MEMORY
@@ -205,6 +211,7 @@ public class FlumeStream {
                 , channelPrefix + ManagerConstants.CHANNEL_KEEP_ALIVE + "= 3"
         );
 
+        result = String.join("\n", result, "\n\n##### SINKS #####\n");
 
         result = String.join("\n", result
                 , sinkPrefix + ManagerConstants.TYPE + "=" + "avro"

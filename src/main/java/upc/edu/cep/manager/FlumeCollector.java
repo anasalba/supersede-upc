@@ -45,7 +45,9 @@ public class FlumeCollector {
             sinkNames += flumeSink.getSinkName() + " ";
         }
 
-        String result = String.join("\n"
+        String result = "##### INIT #####";
+
+        result = String.join("\n", result
                 , agentName + ManagerConstants.DOT + ManagerConstants.SOURCES + " = " + sourceName
                 , agentName + ManagerConstants.DOT + ManagerConstants.CHANNELS + " = " + channelNames
                 , agentName + ManagerConstants.DOT + ManagerConstants.SINKS + " = " + sinkNames
@@ -54,7 +56,7 @@ public class FlumeCollector {
 
         String sourcePrefix = agentName + ManagerConstants.DOT + ManagerConstants.SOURCES + ManagerConstants.DOT + sourceName + ManagerConstants.DOT;
 
-        result = String.join("\n"
+        result = String.join("\n", result
                 , sourcePrefix + ManagerConstants.TYPE + " = " + "avro"
                 , sourcePrefix + "bind" + " = " + "localhost"
                 , sourcePrefix + "port" + " = " + "22224"
@@ -78,16 +80,12 @@ public class FlumeCollector {
             sinks += " " + sink.getSinkName();
         for (FlumeChannel channel : flumeChannels)
             channels += " " + channel.getChannelName();
-        result = String.join("\n"
-                , agentName + ManagerConstants.DOT + ManagerConstants.CHANNELS + " = " + channels
-                , agentName + ManagerConstants.DOT + ManagerConstants.SINKS + " = " + sinks
-        );
 
-        result = String.join("\n", result, "#### Channels ####", "\n");
+        result = String.join("\n", result, "\n##### Channels #####\n");
         for (FlumeChannel channel : flumeChannels) {
             result = String.join("\n", result, channel.interpret(), "\n");
         }
-        result = String.join("\n", result, "#### Sinks ####");
+        result = String.join("\n", result, "\n##### Sinks #####\n");
         for (FlumeSink sink : flumeSinks) {
             result = String.join("\n", result, sink.interpret(deletedRules), "\n");
         }

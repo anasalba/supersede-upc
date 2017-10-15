@@ -23,12 +23,12 @@ public class managerTest {
         //System.out.println(FlumeChannel.Interpret("AAA", "CCC"));
         Manager manager = new Manager();
         createRule();
-        System.out.println(manager.CreateConfiguration("agent", eventSchemas, rules, "localhost:9092", "json", false, "rule2"));
+        //System.out.println(manager.CreateConfiguration("agent", eventSchemas, rules, "localhost:9092", "json", false, "rule2"));
 
 
     }
 
-    private static void createRule() {
+    private static void createRule() throws Exception {
 //        select a.custId, sum(b.price)
 //        from pattern [every a=ServiceOrder ->
 //                b=ProductOrder where timer:within(1 min)].win:time(2 hour)
@@ -177,5 +177,26 @@ public class managerTest {
         rule.setCondition(allCondition);
 
         rules.add(rule);
+
+        FlumeStream flumeStream = new FlumeStream();
+
+        flumeStream.setKafkaBootstrap("localhost:9092");
+        flumeStream.setStreamType("json");
+        flumeStream.setAgentName("agenta");
+        flumeStream.setSourceName("soure1");
+        flumeStream.setEvent(serviceOrdera);
+
+//        String source = flumeStream.interpret("topic1",rules);
+//
+//        System.out.println(source);
+
+        FlumeCollector flumeCollector = new FlumeCollector();
+
+        String collector = flumeCollector.interpret("collector", eventSchemas, rules, "localhost:9092", "json", false, "");
+
+        System.out.println(collector);
+
+
+
     }
 }
