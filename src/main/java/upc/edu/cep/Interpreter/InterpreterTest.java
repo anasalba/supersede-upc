@@ -146,43 +146,43 @@ public class InterpreterTest {
         System.out.println(rule.interpret(InterpreterContext.ESPER));
     }
 
-    public static void test1() throws InterpreterException {
-        //select count(EventA.A) from pattern [every EventA where timer:within(2 sec)].win:time(2 hour)
-
-        Attribute a = new Attribute();
-        a.setName("A");
-
-        EventSchema event1 = new EventSchema();
-        event1.setEventName("EventA");
-        event1.addAttribute(a);
-
-        a.setEvent(event1);
-
-        Within within = new Within();
-        within.setOffset(2);
-        within.setTimeUnit(TimeUnit.second);
-
-        TemporalPattern temporalEvent = new TemporalPattern();
-        temporalEvent.setTemporalOperator(within);
-        temporalEvent.addEvents(event1);
-
-        Window window = new Window();
-        window.setTimeUnit(TimeUnit.hour);
-        window.setWindowType(WindowType.TUMBLING_WINDOW);
-        window.setWithin(2);
-
-        Action action = new Action();
-        FunctionParameter parameter = new FunctionParameter();
-        parameter.setOperand(a);
-        //action.set
-        Count count = new Count(parameter);
-        action.addActionAttribute(count);
-
-        Rule rule = new Rule();
-        rule.setCEPElement(temporalEvent);
-        rule.setWindow(window);
-        rule.setAction(action);
-
-        System.out.println(rule.interpret(InterpreterContext.ESPER));
-    }
+//    public static void test1() throws InterpreterException {
+//        //select count(EventA.A) from pattern [every EventA where timer:within(2 sec)].win:time(2 hour)
+//
+//        Attribute a = new Attribute();
+//        a.setName("A");
+//
+//        EventSchema event1 = new EventSchema();
+//        event1.setEventName("EventA");
+//        event1.addAttribute(a);
+//
+//        a.setEvent(event1);
+//
+//        Within within = new Within();
+//        within.setOffset(2);
+//        within.setTimeUnit(TimeUnit.second);
+//
+//        TemporalPattern temporalEvent = new TemporalPattern();
+//        temporalEvent.setTemporalOperator(within);
+//        temporalEvent.addEvents(event1);
+//
+//        Window window = new Window();
+//        window.setTimeUnit(TimeUnit.hour);
+//        window.setWindowType(WindowType.TUMBLING_WINDOW);
+//        window.setWithin(2);
+//
+//        Action action = new Action();
+//        FunctionParameter parameter = new FunctionParameter();
+//        parameter.setOperand(a);
+//        //action.set
+//        Count count = new Count(parameter);
+//        action.addActionAttribute(count);
+//
+//        Rule rule = new Rule();
+//        rule.setCEPElement(temporalEvent);
+//        rule.setWindow(window);
+//        rule.setAction(action);
+//
+//        System.out.println(rule.interpret(InterpreterContext.ESPER));
+//    }
 }

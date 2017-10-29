@@ -1,5 +1,6 @@
 package upc.edu.cep.RDF_Model.event;
 
+import upc.edu.cep.Interpreter.Interpreter;
 import upc.edu.cep.Interpreter.InterpreterContext;
 import upc.edu.cep.Interpreter.InterpreterException;
 
@@ -11,7 +12,9 @@ import java.util.Map;
 /**
  * Created by osboxes on 14/04/17.
  */
-public class EventSchema extends CEPElement {
+public class EventSchema implements Interpreter {
+
+    private String IRI;
 
     private String eventName;
 
@@ -21,7 +24,7 @@ public class EventSchema extends CEPElement {
 
 
     public EventSchema(String IRI, String eventName, List<Attribute> attributes) {
-        super(IRI);
+        this.IRI = IRI;
         this.eventName = eventName;
         this.attributes = attributes;
     }
@@ -33,7 +36,7 @@ public class EventSchema extends CEPElement {
     }
 
     public EventSchema(String IRI) {
-        super(IRI);
+        this.IRI = IRI;
         this.attributes = new ArrayList<>();
     }
 
@@ -70,6 +73,13 @@ public class EventSchema extends CEPElement {
         this.eventName = eventName;
     }
 
+    public String getIRI() {
+        return IRI;
+    }
+
+    public void setIRI(String IRI) {
+        this.IRI = IRI;
+    }
 
     @Override
     public String interpret(InterpreterContext context) throws InterpreterException {
@@ -81,6 +91,11 @@ public class EventSchema extends CEPElement {
                 return eventName;
             }
         }
+    }
+
+    @Override
+    public String interpret(InterpreterContext context, Map<String, Object> props) throws InterpreterException {
+        return null;
     }
 
     @Override

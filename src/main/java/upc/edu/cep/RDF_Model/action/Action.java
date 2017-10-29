@@ -92,13 +92,13 @@ public class Action implements Interpreter {
         return topicNames;
     }
 
-    public void setTopicNames(List<String> topicNames) {
-        this.topicNames = topicNames;
-    }
-
     public void setTopicNames(String[] topicNames) {
         this.topicNames = new ArrayList<String>();
         Collections.addAll(this.topicNames, topicNames);
+    }
+
+    public void setTopicNames(List<String> topicNames) {
+        this.topicNames = topicNames;
     }
 
     public void addTopics(String[] topicNames) {
@@ -136,6 +136,11 @@ public class Action implements Interpreter {
                 return action;
             }
         }
+    }
+
+    @Override
+    public String interpret(InterpreterContext context, Map<String, Object> props) throws InterpreterException {
+        return null;
     }
 
     @Override

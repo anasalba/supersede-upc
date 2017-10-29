@@ -18,6 +18,8 @@ public class Event extends CEPElement {
 
     private List<SimpleClause> filters;
 
+    private String alias;
+
 
     public Event(String IRI) {
         super(IRI);
@@ -46,14 +48,47 @@ public class Event extends CEPElement {
         this.filters = filters;
     }
 
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
     @Override
     public String interpret(InterpreterContext context) throws InterpreterException {
         switch (context) {
             case ESPER: {
-                return eventSchema.getEventName();
+                return eventSchema.getEventName() + " = " + eventSchema.getEventName();
             }
             default: {
-                return eventSchema.getEventName();
+                return eventSchema.getEventName() + " = " + eventSchema.getEventName();
+            }
+        }
+    }
+
+    @Override
+    public String interpret(InterpreterContext context, Map<String, Object> props) throws InterpreterException {
+
+        Boolean onlyAlias = props.containsKey("only_alias") ? (Boolean) props.get("only_alias") : false;
+        if (onlyAlias) {
+            switch (context) {
+                case ESPER: {
+                    return this.getAlias();
+                }
+                default: {
+                    return this.getAlias();
+                }
+            }
+        } else {
+            switch (context) {
+                case ESPER: {
+                    return this.getAlias() + " = " + eventSchema.getEventName();
+                }
+                default: {
+                    return this.getAlias() + " = " + eventSchema.getEventName();
+                }
             }
         }
     }

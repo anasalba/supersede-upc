@@ -53,6 +53,11 @@ public class FunctionParameter implements Interpreter, Comparable<FunctionParame
     }
 
     @Override
+    public String interpret(InterpreterContext context, Map<String, Object> props) throws InterpreterException {
+        return null;
+    }
+
+    @Override
     public Map<String, String> interpretToMap(InterpreterContext context) throws InterpreterException {
         return operand.interpretToMap(context);
     }

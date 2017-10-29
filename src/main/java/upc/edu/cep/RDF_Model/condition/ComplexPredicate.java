@@ -78,6 +78,11 @@ public class ComplexPredicate extends Condition {
     }
 
     @Override
+    public String interpret(InterpreterContext context, Map<String, Object> props) throws InterpreterException {
+        return null;
+    }
+
+    @Override
     public Map<String, String> interpretToMap(InterpreterContext context) throws InterpreterException {
         Map<String, String> map = new HashMap<>();
         switch (context) {

@@ -58,6 +58,7 @@ public class managerTest {
         Event serviceOrder = new Event();
         serviceOrder.setIRI("ServiceOrder-simple");
         serviceOrder.setEventSchema(serviceOrdera);
+        serviceOrder.setAlias("a");
 
         custIda.setEvent(serviceOrdera);
         name.setEvent(serviceOrdera);
@@ -83,6 +84,7 @@ public class managerTest {
         Event productOrder = new Event();
         productOrder.setIRI("ProductOrder-simple");
         productOrder.setEventSchema(productOrdera);
+        productOrder.setAlias("b");
 
         price.setEvent(productOrdera);
         custIdb.setEvent(productOrdera);

@@ -1,6 +1,7 @@
 package upc.edu.cep.RDF_Model.condition;
 
 import upc.edu.cep.Interpreter.InterpreterContext;
+import upc.edu.cep.Interpreter.InterpreterException;
 import upc.edu.cep.RDF_Model.event.AttributeType;
 
 import java.util.HashMap;
@@ -66,6 +67,11 @@ public class LiteralOperand extends Operand {
                     return value;
             }
         }
+    }
+
+    @Override
+    public String interpret(InterpreterContext context, Map<String, Object> props) throws InterpreterException {
+        return null;
     }
 
     @Override

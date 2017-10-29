@@ -65,6 +65,11 @@ public class LogicOperator extends Operator {
     }
 
     @Override
+    public String interpret(InterpreterContext context, Map<String, Object> props) throws InterpreterException {
+        return null;
+    }
+
+    @Override
     public Map<String, String> interpretToMap(InterpreterContext context) throws InterpreterException {
         throw new InterpreterException("not supported");
     }
